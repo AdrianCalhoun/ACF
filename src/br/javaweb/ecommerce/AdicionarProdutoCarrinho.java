@@ -12,10 +12,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class AdicionarProdutoCarrinho extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        PrintWriter saida = response.getWriter();
+        
         response.setContentType("text/html");
         // Obtencao do canal de envio de dados para o cliente
         PrintWriter out = response.getWriter();
@@ -51,5 +54,12 @@ public class AdicionarProdutoCarrinho extends HttpServlet {
         out.println("<br/><img src='imagem/" + prod.getImage() + "' />");
         out.println("</body>");
         out.println("</html>");
+        
+        HttpSession sessao = request.getSession();
+        if(sessao.isNew()){
+            saida.println("Esta sessão é nova");
+        }else{
+            saida.println("Bem vindo de volta!");
+        }
     }
 }
